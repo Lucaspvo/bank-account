@@ -1,24 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import {Switch, Route, Redirect} from "react-router-dom";
+import TopNavBar from './components/nav-bars/top-nav-bar.js';
+import SideNavBar from './components/nav-bars/side-nav-bar.js';
+import TransactionsList from './components/accounts/transactions/transactions-list.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  <div>
+    <TopNavBar/>
+    <div className="side-bar-and-content">
+      <SideNavBar/>
+      <Switch>
+        <Route path="/accounts/transactions">
+          <TransactionsList/>
+        </Route>
+        <Route path="/">
+          <Redirect to="/accounts/transactions"/>
+        </Route>
+      </Switch>
     </div>
+  </div>
   );
 }
 
