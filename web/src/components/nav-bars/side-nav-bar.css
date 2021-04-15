@@ -1,0 +1,24 @@
+.side-nav-bar-section {
+  width: 150px;
+  height: calc(100vh - 70px);
+  background-color: #0e3254;
+}
+
+.inner-side-nav-bar {
+  height: calc(100% - 10px);
+}
+
+.transactions-tab {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.transactions-tab label {
+  color: white;
+}
+
+.transactions-tab:hover {
+  background-color: #3277b9;
+}
