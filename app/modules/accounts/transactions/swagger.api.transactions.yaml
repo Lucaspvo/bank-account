@@ -1,0 +1,60 @@
+swagger: '2.0'
+info:
+  title: 'Estateably Full Stack Test'
+  version: '1.0'
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+host: localhost:3030
+basePath: /accounts/transactions
+
+paths:
+  '/accounts/transactions':
+    get:
+      tags: [Accounts Transactions]
+      summary: 'Fetch a list of transactions from a specific account'
+      responses:
+        '200':
+          description: 'Transactions list'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/medication_code_item'
+          x-oad-type: response
+      parameters:
+      - name: filter
+        in: query
+        description: 'value to filter by category'
+        type: string
+      - name: search
+        in: query
+        description: 'value to search by amount and/or description'
+        type: string
+
+    x-oad-type: operation
+
+definitions:
+  medication_code_item:
+    x-oad-type: object
+    type: object
+    properties:
+      category:
+        x-oad-type: string
+        type: string
+        description: category of the transaction (salary, food, transport, house, other).
+      amount:
+        x-oad-type: string
+        type: string
+        description: value transferred.
+      description:
+        x-oad-type: string
+        type: string
+        description: description of the transaction.
+      date:
+        x-oad-type: string
+        type: string
+        description: date in which the transaction was processed.
+
