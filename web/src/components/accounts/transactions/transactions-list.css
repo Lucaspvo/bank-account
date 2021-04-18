@@ -1,3 +1,23 @@
 .transactions-list-section {
-  width: 100vw;
+    width: 100vw;
+    padding: 35px;
+    height: calc(100vh - 70px);
+    position: relative;
+}
+
+.inner-transactions-list {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.error-toast {
+    position: absolute;
+    z-index: 100;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.alert-no-data-div {
+    text-align: center;
 }
