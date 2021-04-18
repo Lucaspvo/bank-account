@@ -9,10 +9,10 @@ consumes:
 produces:
 - application/json
 host: localhost:3030
-basePath: /accounts/transactions
+basePath: /accounts/{account_id}/transactions
 
 paths:
-  '/accounts/transactions':
+  '/accounts/{account_id}/transactions':
     get:
       tags: [Accounts Transactions]
       summary: 'Fetch a list of transactions from a specific account'
@@ -22,9 +22,14 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/medication_code_item'
+              $ref: '#/definitions/transaction_item'
           x-oad-type: response
       parameters:
+      - name: account_id
+        in: path
+        required: true
+        description: 'account id'
+        type: integer
       - name: filter
         in: query
         description: 'value to filter by category'
@@ -37,7 +42,7 @@ paths:
     x-oad-type: operation
 
 definitions:
-  medication_code_item:
+  transaction_item:
     x-oad-type: object
     type: object
     properties:

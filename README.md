@@ -30,3 +30,9 @@ To stop the containers from running type `docker-compose stop`
 ## 5. Tests
 
 To run the tests, go to the web directory, type `yarn test` and choose the option `a`
+
+## Backend swagger doc
+
+To check the backend documentation copy the content from the following file:\
+`app/modules/accounts/transactions/swagger.api.transactions.yaml`\
+and paste it on https://editor.swagger.io/
