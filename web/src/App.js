@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Switch, Route, Redirect} from "react-router-dom";
 import TopNavBar from './components/nav-bars/top-nav-bar.js';
 import SideNavBar from './components/nav-bars/side-nav-bar.js';
-import TransactionsList from './components/accounts/transactions/transactions-list.js';
+import TransactionsContent from './components/accounts/transactions/transactions-content';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <SideNavBar/>
         <Switch>
           <Route path="/accounts/transactions">
-            <TransactionsList/>
+            <TransactionsContent/>
           </Route>
           <Route path="/">
             <Redirect to="/accounts/transactions"/>
