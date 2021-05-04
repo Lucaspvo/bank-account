@@ -8,17 +8,33 @@
   height: calc(100% - 10px);
 }
 
-.transactions-tab {
+.inner-side-nav-bar div {
   height: 40px;
   display: flex;
   align-items: center;
   padding-left: 10px;
 }
 
-.transactions-tab label {
+.inner-side-nav-bar div label {
   color: white;
+  margin: 0;
 }
 
-.transactions-tab:hover {
+.inner-side-nav-bar div:hover {
   background-color: #3277b9;
+  cursor: pointer;
+}
+
+.inner-side-nav-bar div label:hover {
+  background-color: #3277b9;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #3277b9;
+  cursor: pointer;
+}
+
+.inner-side-nav-bar a {
+  text-decoration: none;
 }
