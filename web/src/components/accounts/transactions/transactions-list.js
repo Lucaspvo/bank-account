@@ -27,14 +27,14 @@ class TransactionsList extends React.Component {
       loading: false,
     };
 
-    this.fetchTransactionDebounce = debounce(this.fetchTransaction.bind(this), 1000);
+    this.fetchTransactionDebounce = debounce(this.fetchTransactions.bind(this), 1000);
   }
 
   async componentDidMount() {
-    this.fetchTransaction();
+    this.fetchTransactions();
   }
 
-  fetchTransaction() {
+  fetchTransactions() {
     const params = `?${queryString.stringify(this.state.query)}`;
     this.setState({
       loading: true,
@@ -44,15 +44,24 @@ class TransactionsList extends React.Component {
 
         if (response.status === 200) {
           const json = await response.json();
+          console.log(json);
 
           this.setState({
             transactions: json,
           });
         } else {
-          this.setShow(true);
+          this.setState({
+            show: true,
+            message: 'An error occurred while fetching transactions',
+            title: 'Error',
+          });
         }
       } catch (error) {
-        this.setShow(true);
+        this.setState({
+          show: true,
+          message: 'An error occurred while fetching transactions',
+          title: 'Error',
+        });
       } finally {
         this.setState({
           loading: false,
@@ -67,7 +76,7 @@ class TransactionsList extends React.Component {
         ...this.state.query,
         filter: data,
       },
-    }, this.fetchTransaction);
+    }, this.fetchTransactions);
   }
 
   onChange(event) {
@@ -85,6 +94,28 @@ class TransactionsList extends React.Component {
     this.setState({
       show,
     });
+  }
+
+  async deleteTransaction(id) {
+    const response = await fetch(`http://localhost:3030/accounts/1/transactions/${id}`, {
+      method: 'delete',
+    });
+
+    if (response.status === 204) {
+      console.log('AQUI');
+      this.fetchTransactions();
+      this.setState({
+        show: true,
+        message: 'Transaction successfully deleted',
+        title: 'Success',
+      });
+    } else {
+      this.setState({
+        show: true,
+        message: 'Unable to delete transaction',
+        title: 'Error',
+      });
+    }
   }
 
   render() {
@@ -119,6 +150,7 @@ class TransactionsList extends React.Component {
         <TransactionsDatagrid
           data-test="transactions-datagrid"
           transactions={this.state.transactions}
+          onDelete={this.deleteTransaction.bind(this)}
         />
       );
     }
@@ -126,9 +158,10 @@ class TransactionsList extends React.Component {
     return (
       <div className="transactions-list-section" data-test="transactions-list-section">
         <Toast
+          title={this.state.title}
           show={this.state.show}
           setShow={this.setShow.bind(this)}
-          message="An error occurred while fetching transactions!"
+          message={this.state.message}
           data-test="error-toast"
         />
 

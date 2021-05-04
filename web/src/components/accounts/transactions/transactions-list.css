@@ -1,11 +1,4 @@
 .transactions-list-section {
-    width: 100vw;
-    padding: 35px;
-    height: calc(100vh - 70px);
-    position: relative;
-}
-
-.inner-transactions-list {
     overflow-y: auto;
     height: 100%;
 }
