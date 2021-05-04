@@ -1,11 +1,31 @@
 import React from 'react';
-import {Table} from "react-bootstrap";
+import {Table, Button} from "react-bootstrap";
 import moment from 'moment';
+import './transactions-datagrid.css';
+import {connect} from 'react-redux';
+import {editTransaction} from '../../../actions/transaction';
+import {changeTabActive} from '../../../actions/side-nav';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    editTransaction(data) {
+      dispatch(editTransaction(data));
+    },
+    changeTabActive(data) {
+      dispatch(changeTabActive(data));
+    },
+  };
+}
 
 class TransactionsDatagrid extends React.Component {
   formatDate(date) {
     const newDate = moment.utc(date);
     return newDate.format('YYYY-MM-DD');
+  }
+
+  onEditClick(transaction) {
+    this.props.editTransaction(transaction);
+    this.props.changeTabActive('add-transaction');
   }
 
   render() {
@@ -15,7 +35,22 @@ class TransactionsDatagrid extends React.Component {
           <td>{transaction.category}</td>
           <td>{transaction.amount}</td>
           <td>{transaction.description}</td>
-          <td>{this.formatDate(transaction.created_at)}</td>
+          <td>{this.formatDate(transaction.date)}</td>
+          <td>
+            <Button
+              className="edit-btn"
+              variant="info"
+              onClick={() => this.onEditClick(transaction)}
+            >
+              Edit
+            </Button>
+            <Button
+              variant="info"
+              onClick={() => this.props.onDelete(transaction.id)}
+            >
+              Delete
+            </Button>
+          </td>
         </tr>
       );
     });
@@ -28,6 +63,7 @@ class TransactionsDatagrid extends React.Component {
             <th>Amount</th>
             <th>Description</th>
             <th>Date</th>
+            <th>Options</th>
           </tr>
         </thead>
         <tbody data-test="datagrid-body">
@@ -38,4 +74,4 @@ class TransactionsDatagrid extends React.Component {
   }
 }
 
-export default TransactionsDatagrid;
+export default connect(null, mapDispatchToProps)(TransactionsDatagrid);

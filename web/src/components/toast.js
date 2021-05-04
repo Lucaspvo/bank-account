@@ -12,7 +12,7 @@ class Toast extends React.Component {
         autohide
       >
         <ToastBootstrap.Header>
-          <strong className="mr-auto">Error</strong>
+          <strong className="mr-auto">{this.props.title}</strong>
         </ToastBootstrap.Header>
         <ToastBootstrap.Body>{this.props.message}</ToastBootstrap.Body>
       </ToastBootstrap>
